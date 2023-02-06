@@ -9,7 +9,7 @@ export const Contacts = ({ contact }) => {
   const dispatch = useDispatch();
 
   if (!contact) {
-    return null;
+    return ;
   }
 
   return contact.map(({ name, number, id }) => {

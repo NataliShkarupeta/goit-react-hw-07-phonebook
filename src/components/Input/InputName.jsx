@@ -3,8 +3,6 @@ import { Input } from './inputName.styled';
 import { Label } from './inputName.styled';
 import { Button } from 'components/Button/Button';
 import { useSelector, useDispatch } from 'react-redux';
-// import { addContact } from 'redux/contactSlice';
-// import { nanoid } from 'nanoid';
 import { addContacts } from 'redux/operations';
 
 export const InputName = () => {
@@ -30,10 +28,8 @@ export const InputName = () => {
     } else {
       const cont = {
         name,
-        number,
-        // id: nanoid(),
+        number
       };
-      console.log(cont)
       dispatch(addContacts(cont));
       setName('');
       setNumber('');
