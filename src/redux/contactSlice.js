@@ -38,10 +38,6 @@ const contactSlice = createSlice({
     [deleteContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      // const index = state.contacts.findIndex(
-      //   contact => contact.id === action.payload.id
-      // );
-      // state.contacts.splice(index, 1);
       state.contacts = state.contacts.filter(
         contact => contact.id !== action.payload.id
       );
@@ -50,6 +46,4 @@ const contactSlice = createSlice({
   },
 });
 
-// export const { addContacts, deleteContacts, fetchContacts } =
-//   contactSlice.actions;
 export default contactSlice.reducer;
