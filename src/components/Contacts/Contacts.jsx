@@ -2,7 +2,6 @@ import { Item } from './Contacts.styled';
 import { Button } from 'components/Button/Button';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-// import { onDeleteContactAction } from 'redux/contactSlice';
 import { deleteContacts } from 'redux/operations';
 
 export const Contacts = ({ contact }) => {

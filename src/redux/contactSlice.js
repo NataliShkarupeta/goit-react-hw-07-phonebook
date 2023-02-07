@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContacts, deleteContacts } from './operations';
 
 const setError = (state, action) => {
@@ -9,6 +9,12 @@ const setPending = state => {
   state.isLoading = true;
 };
 
+const extraActions = [fetchContacts, addContacts, deleteContacts];
+
+const createExtraActions = type =>
+  extraActions.map(extraAction => extraAction[type]);
+
+
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -17,32 +23,25 @@ const contactSlice = createSlice({
     error: null,
   },
 
-  extraReducers: {
-    [fetchContacts.pending]: setPending,
-    [fetchContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contacts = action.payload;
-    },
-    [fetchContacts.rejected]: setError,
-
-    [addContacts.pending]: setPending,
-    [addContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contacts.push(action.payload);
-    },
-    [addContacts.rejected]: setError,
-
-    [deleteContacts.pending]: setPending,
-    [deleteContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload.id
-      );
-    },
-    [deleteContacts.rejected]: setError,
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.contacts = action.payload;
+      })
+      .addCase(addContacts.fulfilled, (state, action) => {
+        state.contacts.push(action.payload);
+      })
+      .addCase(deleteContacts.fulfilled, (state, action) => {
+        state.contacts = state.contacts.filter(
+          contact => contact.id !== action.payload.id
+        );
+      })
+      .addMatcher(isAnyOf(...createExtraActions('pending')), setPending)
+      .addMatcher(isAnyOf(...createExtraActions('rejected')), setError)
+      .addMatcher(isAnyOf(...createExtraActions('fulfilled')), state => {
+        state.isLoading = false;
+        state.error = null;
+      });
   },
 });
 
