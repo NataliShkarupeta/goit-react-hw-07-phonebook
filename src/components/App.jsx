@@ -18,22 +18,9 @@ export const App = () => {
   const error = useSelector(selectorError);
   const cangeArreyContacts = useSelector(selectorFilterArreyContacts);
 
-  
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
-
-  // console.log('contact in app', contact);
-
-  // const cangeArreyContacts = () => {
-  //   if (filter.length > 0) {
-  //     return contact.filter(cont =>
-  //       cont.name.toLowerCase().includes(filter.toLowerCase().trim())
-  //     );
-  //   } else {
-  //     return contact;
-  //   }
-  // };
 
   return (
     <>
