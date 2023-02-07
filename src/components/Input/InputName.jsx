@@ -4,10 +4,11 @@ import { Label } from './inputName.styled';
 import { Button } from 'components/Button/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContacts } from 'redux/operations';
+import { selectorContact } from 'redux/selector';
 
 export const InputName = () => {
   const dispatch = useDispatch();
-  const contact = useSelector(state => state.contacts.contacts);
+  const contact = useSelector(selectorContact);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
