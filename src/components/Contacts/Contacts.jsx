@@ -7,10 +7,7 @@ import { deleteContacts } from 'redux/operations';
 export const Contacts = ({ contact }) => {
   const dispatch = useDispatch();
 
-  if (!contact) {
-    return ;
-  }
-
+  
   return contact.map(({ name, number, id }) => {
     return (
       <Item key={id}>
